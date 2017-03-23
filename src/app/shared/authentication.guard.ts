@@ -7,7 +7,7 @@ export class AuthenticationGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-      console.log(`[${Date.now()}] AuthenticationGuard: ${state.url}`);
+      console.log(`[${Date.now()}] AuthenticationGuard: ${state.url}, next: ${next}`);
     return true;
   }
 }

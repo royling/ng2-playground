@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { ConfiguredGuard } from './shared/configured.guard';
 // import { AuthenticationGuard } from './shared/authentication.guard';
 // import { AuthorizationGuard } from './shared/authorization.guard';
@@ -8,16 +9,18 @@ import { ConfiguredGuard } from './shared/configured.guard';
 const routes: Routes = [
   {
     path: '',
-    children: [
-      {
-        path: 'config',
-        loadChildren: './configuration/configuration.module#ConfigurationModule',
-        // canActivateChild: [AuthorizationGuard],
-        // canActivate: [AuthenticationGuard],
-        canLoad: [ConfiguredGuard]
-      }
-    ]
-  }
+    component: DashboardComponent
+  }//,
+    // children: [
+      // {
+      //   path: 'config',
+      //   loadChildren: './configuration/configuration.module#ConfigurationModule',
+      //   // canActivateChild: [AuthorizationGuard],
+      //   // canActivate: [AuthenticationGuard],
+      //   canLoad: [/*ConfiguredGuard*/]
+      // }
+    // ]
+  // }
 ];
 
 @NgModule({

@@ -3,25 +3,48 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { WelcomeComponent } from './welcome/welcome.component';
 import { SettingsComponent } from './settings/settings.component';
-import { AuthenticationGuard } from '../shared/authentication.guard';
-import { AuthorizationGuard } from '../shared/authorization.guard';
+import { ProxyComponent } from './proxy/proxy.component';
+// import { AuthenticationGuard } from '../shared/authentication.guard';
+// import { AuthorizationGuard } from '../shared/authorization.guard';
 import { LeavingGuard } from '../shared/leaving.guard';
+// import { ConfiguredGuard } from '../shared/configured.guard';
+import { ParentGuard } from './parent.guard';
+import { ChildGuard } from './child.guard';
+import { AdminGuard } from './admin.guard';
 
 const routes: Routes = [
   {
-    path: '',
-    canActivate: [AuthenticationGuard],
-    canActivateChild: [AuthorizationGuard],
+    path: 'config',
+    // canActivate: [ParentGuard],
+    canActivateChild: [ParentGuard],
+    // canLoad: [ConfiguredGuard],
     children: [
       {
         path: '',
         component: WelcomeComponent,
-        canDeactivate: [LeavingGuard]
+        // canActivate: [ChildGuard],
+        canActivateChild: [ChildGuard],
+        canDeactivate: [/*LeavingGuard*/]
       },
       {
         path: 'settings',
         component: SettingsComponent,
-        canDeactivate: [LeavingGuard]
+        // canActivate: [ChildGuard],
+        // canActivateChild: [ChildGuard],
+        // canDeactivate: [LeavingGuard],
+        children: [
+          {
+            path: '',
+            component: WelcomeComponent
+          },
+          {
+            path: 'proxy',
+            component: ProxyComponent,
+            // canActivate: [AdminGuard],
+            // canActivateChild: [AdminGuard],
+            canDeactivate: [/*AdminGuard*/]
+          }
+        ]
       }
     ]
   }
